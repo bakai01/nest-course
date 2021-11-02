@@ -39,7 +39,7 @@ export class AuthService {
   private async validateUser(userDto: CreateUserDto) {
     try {
       const user = await this.userService.getUserByEmail(userDto.email);
-      if (user === null) {
+      if (!user) {
         throw new HttpException('Такого пользователя нет', HttpStatus.NOT_FOUND);
       }
       const passwordEquals = await bcrypt.compare(userDto.password, user.password);

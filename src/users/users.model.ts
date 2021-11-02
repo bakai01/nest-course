@@ -25,7 +25,7 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @ApiProperty({ example: 'true', description: 'Статус бана' })
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
-  banned: false;
+  banned: boolean;
 
   @ApiProperty({ example: 'просто так', description: 'Причина бана' })
   @Column({ type: DataType.STRING, allowNull: true })
