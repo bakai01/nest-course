@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
 
-  constructor(private jwtService: JwtService) { }
+  constructor(private jwtService: JwtService) {};
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     try {
