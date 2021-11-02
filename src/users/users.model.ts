@@ -32,5 +32,5 @@ export class User extends Model<User, UserCreationAttrs> {
   banReason: string;
 
   @BelongsToMany(() => Role, () => UserRoles)
-  roles: User[];
+  roles: Role[];
 };
