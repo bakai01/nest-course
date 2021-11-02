@@ -37,11 +37,20 @@ export class AuthService {
   }
 
   private async validateUser(userDto: CreateUserDto) {
-    const user = await this.userService.getUserByEmail(userDto.email);
-    const passwordEquals = await bcrypt.compare(userDto.password, user.password);
-    if (user && passwordEquals) {
-      return user;
+    try {
+      const user = await this.userService.getUserByEmail(userDto.email);
+      if (user === null) {
+        throw new HttpException('Такого пользователя нет', HttpStatus.NOT_FOUND);
+      }
+      const passwordEquals = await bcrypt.compare(userDto.password, user.password);
+      if (user && passwordEquals) {
+        return user;
+      }
+    } catch (error) {
+      // if (typeof error.message && error.message === "Cannot read property 'password' of null") {
+      //   throw new HttpException('Такого пользователя нет', HttpStatus.NOT_FOUND);
+      // }
+      throw new UnauthorizedException({ message: 'Не коректный емаил или пароль' });
     }
-    throw new UnauthorizedException({ message: 'Не коректный емаил или пароль' });
   }
 };
